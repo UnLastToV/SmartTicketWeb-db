@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+
+  pgadmin:
+    container_name: Smt-cont
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: kitpanich.jira@northbkk.ac.th
+      PGADMIN_DEFAULT_PASSWORD: root1234
+    ports:
+      - "8080:80"
+
+  db:
+    container_name: SMT-db
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres-admin!
+    ports:
+      - "5432:5432"
