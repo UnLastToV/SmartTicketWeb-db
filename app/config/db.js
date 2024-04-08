@@ -2,7 +2,7 @@ module.exports = {
     HOST: "localhost",
     USER: "postgres",
     PASSWORD: "postgres-admin!",
-    DB: "SmartTicket",
+    DB: "SMT-DB",
     dialect: "postgres",
     port: 5432,
     pool: {

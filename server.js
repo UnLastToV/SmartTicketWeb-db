@@ -3,7 +3,7 @@ const app = express();
 require("dotenv").config();
 app.use(express.json());    //parse request of  content-type - application/json
 app.use(express.urlencoded({ extended: true}));
-const PORT = process.env.PORT | 5000;
+const PORT = process.env.PORT | 3001;
 
 const db = require('./app/model');
 db.sequelize.sync({ force: false }).then(() => {

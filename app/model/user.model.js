@@ -16,15 +16,11 @@ module.exports = (sequelize,DataType) => {
         },
         birthday: {
             type: DataType.INTEGER,
-            autoIncrement: true,
+            autoIncrement: false,
             allowNull: false,
-            primaryKey: true
+            primaryKey: false
         },
         address: {
-            type: DataType.STRING,
-            allownull: false,
-        },
-        licensePlate:{
             type: DataType.STRING,
             allownull: false,
         }
