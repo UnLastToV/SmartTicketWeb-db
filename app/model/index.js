@@ -21,6 +21,6 @@ const db = {};
 db.DataType   = DataType;
 db.sequelize = sequelize;
 
-db.user- require("../model/user.model")(sequelize,DataType);
+db.user- require("./user.model")(sequelize,DataType);
 
 module.exports = db;

@@ -1,10 +1,15 @@
+// driver = user
 module.exports = (sequelize,DataType) => {
     const User = sequelize.define("user", {
-        id: {
+        peopleID: {
             type: DataType.INTEGER,
-            autoIncrement: true,
+            autoIncrement: false,
             allowNull: false,
             primaryKey: true
+        },
+        passwordID: {
+            type: DataType.STRING,
+            allowNull: false
         },
         name: {
             type: DataType.STRING,
@@ -14,11 +19,9 @@ module.exports = (sequelize,DataType) => {
             type: DataType.STRING,
             allownull: false,
         },
-        birthday: {
-            type: DataType.INTEGER,
-            autoIncrement: false,
-            allowNull: false,
-            primaryKey: false
+        birthDay: {
+            type: DataType.DATE,
+            allowNull: false
         },
         address: {
             type: DataType.STRING,
