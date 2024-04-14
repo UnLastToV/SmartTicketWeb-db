@@ -16,6 +16,7 @@ app.get('/', (request, response) => {
 
 
 require('./app/routes/user.route')(app);
+require('./app/routes/police.route')(app);
 
 
 app.listen(PORT, () => {

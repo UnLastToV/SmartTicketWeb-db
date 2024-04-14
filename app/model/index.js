@@ -1,4 +1,4 @@
-const config = require("../config/db");
+const config = require("../config/db")
 
 const DataType = require("sequelize");
 const sequelize = new DataType(
@@ -18,9 +18,10 @@ const sequelize = new DataType(
 );
 
 const db = {};
-db.DataType   = DataType;
+db.DataType = DataType;
 db.sequelize = sequelize;
 
-db.user- require("./user.model")(sequelize,DataType);
+db.user = require("./user.model")(sequelize, DataType);
+db.police = require("./police.model")(sequelize, DataType);
 
 module.exports = db;

@@ -1,13 +1,13 @@
 const db = require('../model');
-const User = db.user;
+const Police = db.police;
 
 exports.findAll = (req, res) => {
     try {
-        User.findAll({
-            attributes: ["peopleID", "passwordID", "name", "lastname", "age", "birthDay", "address"],
+        Police.findAll({
+            attributes: ["user", "passwordID", "name", "lastname", "peopleID", "age", "position", "birthDay", "address"],
         })
-            .then(user => {
-                res.send(user);
+            .then(police => {
+                res.send(police);
             })
             .catch(error => {
                 console.log(error.massage);
@@ -20,26 +20,28 @@ exports.findAll = (req, res) => {
 // create function
 exports.create = (req, res) => {
     try {
-        if (!req.body.peopleID | !req.body.passwordID | !req.body.name | !req.body.lastname | !req.body.age | !req.body.birthDay | !req.body.address ) {
+        if (!req.body.user | !req.body.passwordID | !req.body.name | !req.body.lastname | !req.body.peopleID | !req.body.age | !req.body.position | !req.body.birthDay | !req.body.address ) {
             res.status(400).json({ massage: "Cannot Empty!"});
             return;
         }
 
-        const userObj = {
-            peopleID: req.body.peopleID,
+        const policeObj = {
+            user: req.body.user,
             passwordID: req.body.passwordID,
             name: req.body.name,
             lastname: req.body.lastname,
+            peopleID: req.body.peopleID,
             age: req.body.age,
+            position: req.body.postion,
             birthDay: req.body.birthDay,
             address: req.body.address
         }
-        User.create(userObj)
+        Police.create(policeObj)
         .then((data) =>{
 //  Insert some table
 
 
-            res.status(200).json({ massage: "User created!"})
+            res.status(200).json({ massage: "Account created!"})
         })
         .catch(error => {
             res.status(500).json({ massage: "Error!..."})
@@ -54,7 +56,7 @@ exports.create = (req, res) => {
 exports.findOne = (req, res) => {
     try {
         const id = req.params.id
-        User.findByPk(id, {
+        Police.findByPk(id, {
             // include: [
             //     {
             //         // model: ,
@@ -78,21 +80,23 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
     try {
         const id = req.params.id;
-        const userObj = {
+        const policeObj = {
+            user: req.body.user,
+            passwordID: req.body.passwordID,
             name: req.body.name,
             lastname: req.body.lastname,
-            passwordID: req.body.passwordID,
             age: req.body.age,
+            position: req.body.postion,
             birthDay: req.body.birthDay,
             address: req.body.address
         }
 
-        User.update(userObj, {
+        Police.update(policeObj, {
             where: {id, id},
         })
             .then(data => {
                 if (data == 1) {
-                    res.status(200).json({ massage: "Update Success..!" })
+                    res.status(200).json({ massage: "Update DATA Success..!" })
                 }
                 res.status(200).json(data);
             })
@@ -104,7 +108,7 @@ exports.update = (req, res) => {
 // delete function
 exports.delete = (req, res) => {
     try {
-        User.destroy({ where: { id: req.params.id } })
+        Police.destroy({ where: { id: req.params.id } })
             .then(data => {
                 res.send(data);
             })

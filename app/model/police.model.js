@@ -1,22 +1,28 @@
-// driver = user
 module.exports = (sequelize,DataType) => {
-    const User = sequelize.define("user", {
-// for citizen peopleID = user
+    const Police = sequelize.define("police", {
+        user: {
+            type: DataType.STRING,
+            allowNull: false,
+        },
+        passwordID: {
+            type: DataType.STRING,
+            allowNull: false
+        },
         peopleID: {
             type: DataType.STRING,
             autoIncrement: false,
             allowNull: false,
             primaryKey: true
         },
-        passwordID: {
-            type: DataType.STRING,
-            allowNull: false
-        },
         name: {
             type: DataType.STRING,
             allownull: false,
         },
         lastname: {
+            type: DataType.STRING,
+            allownull: false,
+        },
+        position: {
             type: DataType.STRING,
             allownull: false,
         },
@@ -33,5 +39,5 @@ module.exports = (sequelize,DataType) => {
             allownull: false,
         }
     });
-    return User;
+    return Police;
 };
