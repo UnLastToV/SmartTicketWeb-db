@@ -1,5 +1,6 @@
 const db = require('../model');
 const User = db.user;
+const Report = db.report;
 
 exports.findAll = (req, res) => {
     try {
@@ -20,11 +21,10 @@ exports.findAll = (req, res) => {
 // create function
 exports.create = (req, res) => {
     try {
-        if (!req.body.peopleID | !req.body.passwordID | !req.body.name | !req.body.lastname | !req.body.age | !req.body.birthDay | !req.body.address ) {
-            res.status(400).json({ massage: "Cannot Empty!"});
+        if (!req.body.peopleID | !req.body.passwordID | !req.body.name | !req.body.lastname | !req.body.age | !req.body.birthDay | !req.body.address) {
+            res.status(400).json({ massage: "Cannot Empty!" });
             return;
         }
-
         const userObj = {
             peopleID: req.body.peopleID,
             passwordID: req.body.passwordID,
@@ -35,19 +35,27 @@ exports.create = (req, res) => {
             address: req.body.address
         }
         User.create(userObj)
-        .then((data) =>{
-//  Insert some table
+            .then((data) => {
+                //  Insert some table
+                res.status(200).json({ massage: "User created!" })
+            })
+            .catch(error => {
+                res.status(500).json({ massage: "Error!..." })
+            })
 
-
-            res.status(200).json({ massage: "User created!"})
-        })
-        .catch(error => {
-            res.status(500).json({ massage: "Error!..."})
-        })
-    
     } catch (error) {
         console.send.status(500)
     }
+};
+
+exports.addUserToReport = (req, res) => {
+    const junctionAttributes = {
+        peopleID: req.body.peopleID,
+        reportID: req.body.reportID
+    }
+    User_Report.create(junctionAttributes)
+        .then(res.status(200).json({ massage: "User_Report Created!" }))
+        .catch(error => res.status(400).json({ massage: error.massage }));
 };
 
 // findOne function
@@ -55,12 +63,12 @@ exports.findOne = (req, res) => {
     try {
         const id = req.params.id
         User.findByPk(id, {
-            // include: [
-            //     {
-            //         // model: ,
-            //         // attributes: [""]peopleid, name, lastName, birthDay 
-            //     }
-            // ]
+            include: [
+                {
+                    model: Report,
+                    attributes: ["reportID"]
+                }
+            ]
         })
             .then(data => {
                 res.status(200).json(data)
@@ -88,7 +96,7 @@ exports.update = (req, res) => {
         }
 
         User.update(userObj, {
-            where: {id, id},
+            where: { id, id },
         })
             .then(data => {
                 if (data == 1) {

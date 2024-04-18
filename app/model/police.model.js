@@ -1,5 +1,15 @@
-module.exports = (sequelize,DataType) => {
+module.exports = (sequelize, DataType) => {
     const Police = sequelize.define("police", {
+        
+        policeID: {
+            type: DataType.INTEGER,
+            allowNull: false,
+            primaryKey: true
+        },
+        peopleID: {
+            type: DataType.STRING,
+            allowNull: false
+        },
         user: {
             type: DataType.STRING,
             allowNull: false,
@@ -7,12 +17,6 @@ module.exports = (sequelize,DataType) => {
         passwordID: {
             type: DataType.STRING,
             allowNull: false
-        },
-        peopleID: {
-            type: DataType.STRING,
-            autoIncrement: false,
-            allowNull: false,
-            primaryKey: true
         },
         name: {
             type: DataType.STRING,
