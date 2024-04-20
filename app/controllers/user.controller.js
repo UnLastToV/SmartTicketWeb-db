@@ -61,7 +61,7 @@ exports.findOne = (req, res) => {
             //     [
             //         {
             //             model: Report,
-            //             attributes: ["reportID"]
+            //             attributes: ["id"]
             //         }
             //     ]
         })
@@ -114,7 +114,7 @@ exports.delete = (req, res) => {
                 res.send(data);
             })
             .catch(error => {
-                res.status(400).json({ massage: error.massage });
+                res.status(400).json({ massage: "Error? Cant Delete!" });
             })
     } catch (error) {
         res.status(500).json({ massage: error.massage });

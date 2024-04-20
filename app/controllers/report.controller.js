@@ -1,4 +1,4 @@
-const db = require('../model');
+const db = require('../model/index');
 const Report = db.report;
 const Police = db.police;
 const User = db.user;
@@ -62,17 +62,17 @@ exports.findOne = (req, res) => {
     try {
         const id = req.params.id
         Report.findByPk(id, {
-            include:
-                [
-                    {
-                        model: Police,
-                        attributes: ["policeID", "name", "lastname", "position"]
-                    },
-                    {
-                        model: User,
-                        attributes: ["peopleID", "name", "lastname", "age", "address", "phoneNumber"]
-                    }
-                ]
+            // include:
+            //     [
+            //         {
+            //             model: Police,
+            //             attributes: ["policeID", "name", "lastname", "position"]
+            //         },
+            //         {
+            //             model: User,
+            //             attributes: ["peopleID", "name", "lastname", "age", "address", "phoneNumber"]
+            //         }
+            //     ]
         })
             .then(data => {
                 res.status(200).json(data)
