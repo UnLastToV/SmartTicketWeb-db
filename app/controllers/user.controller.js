@@ -5,7 +5,8 @@ const Report = db.report;
 exports.findAll = (req, res) => {
     try {
         User.findAll({
-            attributes: ["peopleID", "passwordID", "name", "lastname", "age", "birthDay", "address"],
+            // phoneNumber 
+            attributes: ["id", "peopleID", "passwordID", "name", "lastname", "age", "birthDay", "address", "phoneNumber", "status"]
         })
             .then(user => {
                 res.send(user);
@@ -21,18 +22,21 @@ exports.findAll = (req, res) => {
 // create function
 exports.create = (req, res) => {
     try {
-        if (!req.body.peopleID | !req.body.passwordID | !req.body.name | !req.body.lastname | !req.body.age | !req.body.birthDay | !req.body.address) {
+        if (!req.body.id | !req.body.peopleID | !req.body.passwordID | !req.body.name | !req.body.lastname | !req.body.age | !req.body.birthDay | !req.body.address | !req.body.phoneNumber | !req.body.status) {
             res.status(400).json({ massage: "Cannot Empty!" });
             return;
         }
         const userObj = {
+            id: req.body.id,
             peopleID: req.body.peopleID,
             passwordID: req.body.passwordID,
             name: req.body.name,
             lastname: req.body.lastname,
             age: req.body.age,
             birthDay: req.body.birthDay,
-            address: req.body.address
+            address: req.body.address,
+            phoneNumber: req.body.phoneNumber,
+            status: req.body.status
         }
         User.create(userObj)
             .then((data) => {
@@ -48,27 +52,18 @@ exports.create = (req, res) => {
     }
 };
 
-exports.addUserToReport = (req, res) => {
-    const junctionAttributes = {
-        peopleID: req.body.peopleID,
-        reportID: req.body.reportID
-    }
-    User_Report.create(junctionAttributes)
-        .then(res.status(200).json({ massage: "User_Report Created!" }))
-        .catch(error => res.status(400).json({ massage: error.massage }));
-};
-
 // findOne function
 exports.findOne = (req, res) => {
     try {
         const id = req.params.id
         User.findByPk(id, {
-            include: [
-                {
-                    model: Report,
-                    attributes: ["reportID"]
-                }
-            ]
+            // include:
+            //     [
+            //         {
+            //             model: Report,
+            //             attributes: ["reportID"]
+            //         }
+            //     ]
         })
             .then(data => {
                 res.status(200).json(data)
@@ -92,7 +87,9 @@ exports.update = (req, res) => {
             passwordID: req.body.passwordID,
             age: req.body.age,
             birthDay: req.body.birthDay,
-            address: req.body.address
+            address: req.body.address,
+            phoneNumber: req.body.phoneNumber,
+            status: req.body.status
         }
 
         User.update(userObj, {

@@ -6,9 +6,9 @@ module.exports = (app) => {
     // Crud function
     router.get("/", user.findAll);
     router.post("/create-user", user.create);
-    router.get("/edit-user-data", user.findOne);
-    router.put("/update-user", user.update);
-    router.delete("delete-user-data",user.delete)
+    router.get("/edit-user-data/:id", user.findOne);
+    router.put("/update-user/:id", user.update);
+    router.delete("delete-user-data/:id", user.delete)
 
 
     app.use("/users", router);

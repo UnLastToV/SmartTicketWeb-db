@@ -22,15 +22,16 @@ db.DataType = DataType;
 db.sequelize = sequelize;
 
 db.user = require("./user.model")(sequelize, DataType);
+db.driveCard = require("./driveCard.model")(sequelize, DataType);
 db.police = require("./police.model")(sequelize, DataType);
 db.report = require("./report.model")(sequelize, DataType);
 
-//One to Many Relation
-// report--user
-db.user.hasMany(db.report, {
-    onDelete: 'CASCADE'
-});
-db.report.belongsTo(db.user);
+// //One to Many Relation
+// // report--user
+// db.user.hasMany(db.report, {
+//     onDelete: 'CASCADE'
+// });
+// db.report.belongsTo(db.user);
 
 // // report--police
 // db.police.hasMany(db.report, {

@@ -1,3 +1,4 @@
+// police = officer
 const db = require('../model');
 const Police = db.police;
 const Report = db.report;
@@ -5,7 +6,7 @@ const Report = db.report;
 exports.findAll = (req, res) => {
     try {
         Police.findAll({
-            attributes: ["peopleID", "policeID", "user", "passwordID", "name", "lastname", "age", "position", "birthDay", "address"],
+            attributes: ["id", "peopleID", "user", "passwordID", "name", "lastname", "rank", "age", "birthDay", "address", "phoneNumber", "status"],
         })
             .then(police => {
                 res.send(police);
@@ -21,22 +22,24 @@ exports.findAll = (req, res) => {
 // create function
 exports.create = (req, res) => {
     try {
-        if (!req.body.peopleID | !req.body.policeID | !req.body.user | !req.body.passwordID | !req.body.name | !req.body.lastname | !req.body.age | !req.body.position | !req.body.birthDay | !req.body.address) {
+        if (!req.body.id | !req.body.peopleID | !req.body.user | !req.body.passwordID | !req.body.name | !req.body.lastname | !req.body.rank | !req.body.age | !req.body.birthDay | !req.body.address | !req.body.phoneNumber | !req.body.status) {
             res.status(400).json({ massage: "Cannot Empty!" });
             return;
         }
 
         const policeObj = {
+            id: req.body.id,
             peopleID: req.body.peopleID,
-            policeID: req.body.policeID,
             user: req.body.user,
             passwordID: req.body.passwordID,
             name: req.body.name,
             lastname: req.body.lastname,
+            rank: req.body.rank,
             age: req.body.age,
-            position: req.body.postion,
             birthDay: req.body.birthDay,
-            address: req.body.address
+            address: req.body.address,
+            phoneNumber: req.body.phoneNumber,
+            status: req.body.status
         }
         Police.create(policeObj)
             .then((data) => {
@@ -81,15 +84,16 @@ exports.update = (req, res) => {
     try {
         const id = req.params.id;
         const policeObj = {
-            peopleID: req.body.policeID,
             user: req.body.user,
             passwordID: req.body.passwordID,
             name: req.body.name,
             lastname: req.body.lastname,
             age: req.body.age,
-            position: req.body.postion,
+            rank: req.body.rank,
             birthDay: req.body.birthDay,
-            address: req.body.address
+            address: req.body.address,
+            phoneNumber: req.body.phoneNumber,
+            status: req.body.status
         }
 
         Police.update(policeObj, {

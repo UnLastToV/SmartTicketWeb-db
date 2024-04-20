@@ -1,9 +1,9 @@
 module.exports = (sequelize, DataType) => {
     const Police = sequelize.define("police", {
-        
-        policeID: {
+        id: {
             type: DataType.INTEGER,
             allowNull: false,
+            autoIncrement: true,
             primaryKey: true
         },
         peopleID: {
@@ -12,7 +12,7 @@ module.exports = (sequelize, DataType) => {
         },
         user: {
             type: DataType.STRING,
-            allowNull: false,
+            allowNull: false
         },
         passwordID: {
             type: DataType.STRING,
@@ -26,7 +26,7 @@ module.exports = (sequelize, DataType) => {
             type: DataType.STRING,
             allownull: false,
         },
-        position: {
+        rank: {
             type: DataType.STRING,
             allownull: false,
         },
@@ -41,6 +41,14 @@ module.exports = (sequelize, DataType) => {
         address: {
             type: DataType.STRING,
             allownull: false,
+        },
+        phoneNumber: {
+            type: DataType.INTEGER,
+            allowNull: false
+        },
+        status: {
+            type: DataType.STRING,
+            allowNull: false
         }
     });
     return Police;

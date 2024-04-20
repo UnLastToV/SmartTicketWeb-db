@@ -1,26 +1,21 @@
 const db = require('../model');
-const Report = db.report;
-const Police = db.police;
+const DriveCard = db.driveCard;
 const User = db.user;
 
 exports.findAll = (req, res) => {
     try {
-        Report.findAll({
-            attributes: ["id", "addDate", "outDate"],
+        DriveCard.findAll({
+            attributes: ["cardID", "expireDate", "status"],
             include:
                 [
-                    {
-                        model: Police,
-                        attributes: ["policeID", "name", "lastname", "position"]
-                    },
                     {
                         model: User,
                         attributes: ["peopleID", "name", "lastname", "age", "address", "phoneNumber"]
                     }
                 ]
         })
-            .then(report => {
-                res.send(report);
+            .then(driveCard => {
+                res.send(driveCard);
             })
             .catch(error => {
                 console.log(error.massage);
@@ -33,20 +28,20 @@ exports.findAll = (req, res) => {
 // create function
 exports.create = (req, res) => {
     try {
-        if (!req.body.id | !req.body.addDate | !req.body.outDate) {
+        if (!req.body.cardID | !req.body.expireDate | !req.body.status) {
             res.status(400).json({ massage: "Cannot Empty!" });
             return;
         }
 
-        const reportObj = {
-            id: req.body.id,
-            addDate: req.body.addDate,
+        const driveCardObj = {
+            cardID: req.body.cardID,
+            addDate: req.body.Date,
             outDate: req.body.outDate
         }
-        Report.create(reportObj)
+        Report.create(driveCardObj)
             .then((data) => {
                 //  CAN Insert some table here
-                res.status(200).json({ massage: "Report created!" })
+                res.status(200).json({ massage: "driverCard created!" })
             })
             .catch(error => {
                 res.status(500).json({ massage: "Error!..." })
@@ -64,10 +59,6 @@ exports.findOne = (req, res) => {
         Report.findByPk(id, {
             include:
                 [
-                    {
-                        model: Police,
-                        attributes: ["policeID", "name", "lastname", "position"]
-                    },
                     {
                         model: User,
                         attributes: ["peopleID", "name", "lastname", "age", "address", "phoneNumber"]
@@ -90,11 +81,11 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
     try {
         const id = req.params.id;
-        const reportObj = {
+        const driveCardObj = {
             outDate: req.body.outDate
         }
 
-        Report.update(reportObj, {
+        Report.update(driveCardObj, {
             where: { id, id },
         })
             .then(data => {

@@ -1,12 +1,16 @@
 module.exports = (sequelize, DataType) => {
-    const Report = sequelize.define("report",{
+    const Report = sequelize.define("report", {
         id: {
             type: DataType.INTEGER,
-            autoIncrement: true,
             allowNull: false,
+            autoIncrement: true,
             primaryKey: true
         },
-        date: {
+        addDate: {
+            type: DataType.DATE,
+            allowNull: false
+        },
+        outDate: {
             type: DataType.DATE,
             allowNull: false
         }
