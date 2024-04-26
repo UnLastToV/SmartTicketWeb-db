@@ -1,26 +1,22 @@
 const db = require('../model');
-const Report = db.report;
+const PoliceSatation = db.policeSatation;
 const Police = db.police;
-const User = db.user;
+
 
 exports.findAll = (req, res) => {
     try {
-        Report.findAll({
-            attributes: ["id", "addDate", "outDate"],
+        PoliceSatation.findAll({
+            attributes: ["id", "policeStation"],
             include:
                 [
                     {
                         model: Police,
-                        attributes: ["policeID", "name", "lastname", "position"]
-                    },
-                    {
-                        model: User,
-                        attributes: ["peopleID", "name", "lastname", "age", "address", "phoneNumber"]
+                        attributes: ["id", "policeID", "name", "lastname", "position"]
                     }
                 ]
         })
-            .then(report => {
-                res.send(report);
+            .then(policeSatation => {
+                res.send(policeSatation);
             })
             .catch(error => {
                 console.log(error.massage);
@@ -33,20 +29,18 @@ exports.findAll = (req, res) => {
 // create function
 exports.create = (req, res) => {
     try {
-        if (!req.body.id | !req.body.addDate | !req.body.outDate) {
+        if (!req.body.id | !req.body.policeStation) {
             res.status(400).json({ massage: "Cannot Empty!" });
             return;
         }
-
-        const reportObj = {
+        const policeSatationObj = {
             id: req.body.id,
-            addDate: req.body.addDate,
-            outDate: req.body.outDate
+            id: req.body.policeStation
         }
-        Report.create(reportObj)
+        Vehicle.create(policeSatationObj)
             .then((data) => {
-                //  CAN Insert some table here
-                res.status(200).json({ massage: "Report created!" })
+                //  Insert some table
+                res.status(200).json({ massage: "Station created!" })
             })
             .catch(error => {
                 res.status(500).json({ massage: "Error!..." })
@@ -61,18 +55,13 @@ exports.create = (req, res) => {
 exports.findOne = (req, res) => {
     try {
         const id = req.params.id
-        Report.findByPk(id, {
-            include:
-                [
-                    {
-                        model: Police,
-                        attributes: ["policeID", "name", "lastname", "position"]
-                    },
-                    {
-                        model: User,
-                        attributes: ["peopleID", "name", "lastname", "age", "address", "phoneNumber"]
-                    }
-                ]
+        PoliceSatation.findByPk(id, {
+            // include:
+            //     [
+            //         {
+            //             
+            //         }
+            //     ]
         })
             .then(data => {
                 res.status(200).json(data)
@@ -90,11 +79,12 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
     try {
         const id = req.params.id;
-        const reportObj = {
-            outDate: req.body.outDate
+        const policeSatationObj = {
+            id: req.body.id,
+            id: req.body.policeStation,
         }
 
-        Report.update(reportObj, {
+        PoliceSatation.update(policeSatationObj, {
             where: { id, id },
         })
             .then(data => {
@@ -111,7 +101,7 @@ exports.update = (req, res) => {
 // delete function
 exports.delete = (req, res) => {
     try {
-        Report.destroy({ where: { id: req.params.id } })
+        PoliceSatation.destroy({ where: { id: req.params.id } })
             .then(data => {
                 res.send(data);
             })

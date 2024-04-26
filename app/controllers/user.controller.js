@@ -1,11 +1,10 @@
 const db = require('../model');
 const User = db.user;
-const Report = db.report;
+// const Report = db.report;
 
 exports.findAll = (req, res) => {
     try {
         User.findAll({
-            // phoneNumber 
             attributes: ["id", "peopleID", "passwordID", "name", "lastname", "age", "birthDay", "address", "phoneNumber", "status"]
         })
             .then(user => {
@@ -57,13 +56,13 @@ exports.findOne = (req, res) => {
     try {
         const id = req.params.id
         User.findByPk(id, {
-            // include:
-            //     [
-            //         {
-            //             model: Report,
-            //             attributes: ["id"]
-            //         }
-            //     ]
+            include:
+                [
+                    {
+                        model: Report,
+                        attributes: ["id"]
+                    }
+                ]
         })
             .then(data => {
                 res.status(200).json(data)
@@ -114,7 +113,7 @@ exports.delete = (req, res) => {
                 res.send(data);
             })
             .catch(error => {
-                res.status(400).json({ massage: "Error? Cant Delete!" });
+                res.status(400).json({ massage: error.massage });
             })
     } catch (error) {
         res.status(500).json({ massage: error.massage });

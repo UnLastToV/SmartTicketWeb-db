@@ -17,6 +17,10 @@ app.get('/', (request, response) => {
 
 require('./app/routes/user.route')(app);
 require('./app/routes/police.route')(app);
+require('./app/routes/report.route')(app);
+require('./app/routes/driveCard.route')(app);
+require('./app/routes/vehicle.route')(app);
+require('./app/routes/policeStation.route')(app);
 
 
 app.listen(PORT, () => {

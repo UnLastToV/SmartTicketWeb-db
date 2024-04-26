@@ -5,10 +5,10 @@ module.exports = (app) => {
 
     // Crud function
     router.get("/", police.findAll);
-    router.post("/police-user", police.create);
-    router.get("/edit-police-data/:id", police.findOne);
+    router.post("/police-create", police.create);
+    router.get("/find-police/:id", police.findOne);
     router.put("/update-police/:id", police.update);
-    router.delete("delete-police-data/:id", police.delete)
+    router.delete("/delete-police-data/:id", police.delete)
 
 
     app.use("/polices", router);
