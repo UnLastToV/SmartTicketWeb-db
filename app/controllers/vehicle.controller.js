@@ -1,26 +1,22 @@
 const db = require('../model');
-const Report = db.report;
-const Police = db.police;
+const Vehicle = db.vehicle;
 const User = db.user;
+
 
 exports.findAll = (req, res) => {
     try {
-        Report.findAll({
-            attributes: ["id", "addDate", "outDate"],
+        Vehicle.findAll({
+            attributes: ["id", "carType", "vehicleLicensePlate", "vehicleProvince", "brand"],
             include:
                 [
-                    {
-                        model: Police,
-                        attributes: ["policeID", "name", "lastname", "position"]
-                    },
                     {
                         model: User,
                         attributes: ["peopleID", "name", "lastname", "age", "address", "phoneNumber"]
                     }
                 ]
         })
-            .then(report => {
-                res.send(report);
+            .then(vehicle => {
+                res.send(vehicle);
             })
             .catch(error => {
                 console.log(error.massage);
@@ -33,20 +29,22 @@ exports.findAll = (req, res) => {
 // create function
 exports.create = (req, res) => {
     try {
-        if (!req.body.id | !req.body.addDate | !req.body.outDate) {
+        if (!req.body.id | !req.body.carType | !req.body.vehicleLicensePlate | !req.body.vehicleProvince | !req.body.brand) {
             res.status(400).json({ massage: "Cannot Empty!" });
             return;
         }
-
-        const reportObj = {
+        const vehicleObj = {
             id: req.body.id,
-            addDate: req.body.addDate,
-            outDate: req.body.outDate
+            id: req.body.carType,
+            id: req.body.vehicleLicensePlate,
+            id: req.body.vehicleProvince,
+            id: req.body.brand
+
         }
-        Report.create(reportObj)
+        Vehicle.create(vehicleObj)
             .then((data) => {
-                //  CAN Insert some table here
-                res.status(200).json({ massage: "Report created!" })
+                //  Insert some table
+                res.status(200).json({ massage: "Vehicle created!" })
             })
             .catch(error => {
                 res.status(500).json({ massage: "Error!..." })
@@ -61,18 +59,13 @@ exports.create = (req, res) => {
 exports.findOne = (req, res) => {
     try {
         const id = req.params.id
-        Report.findByPk(id, {
-            include:
-                [
-                    {
-                        model: Police,
-                        attributes: ["policeID", "name", "lastname", "position"]
-                    },
-                    {
-                        model: User,
-                        attributes: ["peopleID", "name", "lastname", "age", "address", "phoneNumber"]
-                    }
-                ]
+        Vehicle.findByPk(id, {
+            // include:
+            //     [
+            //         {
+            //             
+            //         }
+            //     ]
         })
             .then(data => {
                 res.status(200).json(data)
@@ -90,11 +83,15 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
     try {
         const id = req.params.id;
-        const reportObj = {
-            outDate: req.body.outDate
+        const vehicleObj = {
+            id: req.body.id,
+            id: req.body.carType,
+            id: req.body.vehicleLicensePlate,
+            id: req.body.vehicleProvince,
+            id: req.body.brand
         }
 
-        Report.update(reportObj, {
+        Vehicle.update(vehicleObj, {
             where: { id, id },
         })
             .then(data => {
@@ -111,7 +108,7 @@ exports.update = (req, res) => {
 // delete function
 exports.delete = (req, res) => {
     try {
-        Report.destroy({ where: { id: req.params.id } })
+        Vehicle.destroy({ where: { id: req.params.id } })
             .then(data => {
                 res.send(data);
             })

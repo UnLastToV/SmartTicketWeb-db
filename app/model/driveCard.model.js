@@ -1,6 +1,5 @@
 module.exports = (sequelize, DataType) => {
     const DriveCard = sequelize.define("driveCard", {
-        // for citizen peopleID = user
         cardID: {
             type: DataType.INTEGER,
             allowNull: false,

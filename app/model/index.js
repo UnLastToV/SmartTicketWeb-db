@@ -25,9 +25,11 @@ db.user = require("./user.model")(sequelize, DataType);
 db.driveCard = require("./driveCard.model")(sequelize, DataType);
 db.police = require("./police.model")(sequelize, DataType);
 db.report = require("./report.model")(sequelize, DataType);
+db.vehicle = require("./vehicle.model")(sequelize, DataType);
+db.policeSatation = require("./policeStation.model")(sequelize, DataType);
 
-// //One to Many Relation
-// // report--user
+//One to Many Relation
+// report--user
 // db.user.hasMany(db.report, {
 //     onDelete: 'CASCADE'
 // });
@@ -38,5 +40,7 @@ db.report = require("./report.model")(sequelize, DataType);
 //     onDelete: 'CASCADE'
 // });
 // db.report.belongsTo(db.police);
+
+
 
 module.exports = db;
