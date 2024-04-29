@@ -6,7 +6,7 @@ const User = db.user;
 exports.findAll = (req, res) => {
     try {
         Vehicle.findAll({
-            attributes: ["id", "carType", "vehicleLicensePlate", "vehicleProvince", "brand"],
+            attributes: ["carType", "vehicleLicensePlate", "vehicleProvince", "brand"],
             include:
                 [
                     {
@@ -29,12 +29,11 @@ exports.findAll = (req, res) => {
 // create function
 exports.create = (req, res) => {
     try {
-        if (!req.body.id | !req.body.carType | !req.body.vehicleLicensePlate | !req.body.vehicleProvince | !req.body.brand) {
+        if (!req.body.carType | !req.body.vehicleLicensePlate | !req.body.vehicleProvince | !req.body.brand) {
             res.status(400).json({ massage: "Cannot Empty!" });
             return;
         }
         const vehicleObj = {
-            id: req.body.id,
             id: req.body.carType,
             id: req.body.vehicleLicensePlate,
             id: req.body.vehicleProvince,

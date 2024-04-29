@@ -5,7 +5,7 @@ const User = db.user;
 exports.findAll = (req, res) => {
     try {
         User.findAll({
-            attributes: ["id", "peopleID", "passwordID", "name", "lastname", "age", "birthDay", "address", "phoneNumber", "status"]
+            attributes: ["peopleID", "password", "name", "lastname", "age", "birthDay", "address", "phoneNumber", "status"]
         })
             .then(user => {
                 res.send(user);
@@ -21,14 +21,13 @@ exports.findAll = (req, res) => {
 // create function
 exports.create = (req, res) => {
     try {
-        if (!req.body.id | !req.body.peopleID | !req.body.passwordID | !req.body.name | !req.body.lastname | !req.body.age | !req.body.birthDay | !req.body.address | !req.body.phoneNumber | !req.body.status) {
+        if (!req.body.peopleID | !req.body.passwordID | !req.body.name | !req.body.lastname | !req.body.age | !req.body.birthDay | !req.body.address | !req.body.phoneNumber | !req.body.status) {
             res.status(400).json({ massage: "Cannot Empty!" });
             return;
         }
         const userObj = {
-            id: req.body.id,
             peopleID: req.body.peopleID,
-            passwordID: req.body.passwordID,
+            password: req.body.password,
             name: req.body.name,
             lastname: req.body.lastname,
             age: req.body.age,
@@ -81,9 +80,10 @@ exports.update = (req, res) => {
     try {
         const id = req.params.id;
         const userObj = {
+            peopleID: req.body.peopleID,
+            password: req.body.password,
             name: req.body.name,
             lastname: req.body.lastname,
-            passwordID: req.body.passwordID,
             age: req.body.age,
             birthDay: req.body.birthDay,
             address: req.body.address,

@@ -6,9 +6,9 @@ module.exports = (app) => {
     // Crud function
     router.get("/", driveCard.findAll);
     router.post("/create-user", driveCard.create);
-    router.get("/edit-user-data/:id", driveCard.findOne);
-    router.put("/update-user/:id", driveCard.update);
-    router.delete("/delete-user-data/:id", driveCard.delete)
+    router.get("/edit-user-data/:cardID", driveCard.findOne);
+    router.put("/update-user/:cardID", driveCard.update);
+    router.delete("/delete-user-data/:cardID", driveCard.delete)
 
 
     app.use("/drive-cards", router);

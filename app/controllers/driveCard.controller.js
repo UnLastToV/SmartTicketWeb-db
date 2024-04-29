@@ -5,7 +5,7 @@ const User = db.user;
 exports.findAll = (req, res) => {
     try {
         DriveCard.findAll({
-            attributes: ["cardID", "expireDate", "status"],
+            attributes: ["cardID", "issueDate", "expiryDate", "status"],
             include:
                 [
                     {
@@ -28,20 +28,21 @@ exports.findAll = (req, res) => {
 // create function
 exports.create = (req, res) => {
     try {
-        if (!req.body.cardID | !req.body.expireDate | !req.body.status) {
+        if (!req.body.cardID | !req.body.issueDate | !req.body.expiryDate | !req.body.status) {
             res.status(400).json({ massage: "Cannot Empty!" });
             return;
         }
 
         const driveCardObj = {
             cardID: req.body.cardID,
-            addDate: req.body.Date,
-            outDate: req.body.outDate
+            issueDate: req.body.issueDate,
+            expiryDate: req.body.expiryDate,
+            status: req.body.status
         }
         Report.create(driveCardObj)
             .then((data) => {
                 //  CAN Insert some table here
-                res.status(200).json({ massage: "driverCard created!" })
+                res.status(200).json({ massage: "Driver-Card created!" })
             })
             .catch(error => {
                 res.status(500).json({ massage: "Error!..." })
@@ -82,7 +83,10 @@ exports.update = (req, res) => {
     try {
         const id = req.params.id;
         const driveCardObj = {
-            outDate: req.body.outDate
+            cardID: req.body.cardID,
+            issueDate: req.body.issueDate,
+            expiryDate: req.body.expiryDate,
+            status: req.body.status
         }
 
         Report.update(driveCardObj, {

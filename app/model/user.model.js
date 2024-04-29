@@ -2,17 +2,11 @@
 module.exports = (sequelize, DataType) => {
     const User = sequelize.define("user", {
         // for citizen peopleID = user
-        id: {
-            type: DataType.INTEGER,
-            allowNull: false,
-            autoIncrement: true,
-            primaryKey: true
-        },
         peopleID: {
             type: DataType.STRING,
             allowNull: false,
         },
-        passwordID: {
+        password: {
             type: DataType.STRING,
             allowNull: false
         },

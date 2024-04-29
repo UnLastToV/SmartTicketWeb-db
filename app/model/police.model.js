@@ -1,20 +1,14 @@
 module.exports = (sequelize, DataType) => {
     const Police = sequelize.define("police", {
-        id: {
-            type: DataType.INTEGER,
-            allowNull: false,
-            autoIncrement: true,
-            primaryKey: true
-        },
         peopleID: {
             type: DataType.STRING,
             allowNull: false
         },
-        user: {
+        username: {
             type: DataType.STRING,
             allowNull: false
         },
-        passwordID: {
+        password: {
             type: DataType.STRING,
             allowNull: false
         },

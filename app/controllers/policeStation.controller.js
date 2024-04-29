@@ -11,7 +11,7 @@ exports.findAll = (req, res) => {
                 [
                     {
                         model: Police,
-                        attributes: ["id", "policeID", "name", "lastname", "position"]
+                        attributes: ["id", "peopleID", "username", "password", "name", "lastname", "rank", "age", "brithDay", "address", "PhoneNumber", "status"]
                     }
                 ]
         })

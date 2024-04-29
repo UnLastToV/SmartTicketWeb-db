@@ -6,11 +6,11 @@ module.exports = (sequelize, DataType) => {
             autoIncrement: true,
             primaryKey: true
         },
-        addDate: {
+        issueDate: {
             type: DataType.DATE,
             allowNull: false
         },
-        outDate: {
+        expiryDate: {
             type: DataType.DATE,
             allowNull: false
         }

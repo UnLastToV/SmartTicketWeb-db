@@ -6,7 +6,7 @@ const Police = db.police;
 exports.findAll = (req, res) => {
     try {
         Police.findAll({
-            attributes: ["id", "peopleID", "user", "passwordID", "name", "lastname", "rank", "age", "birthDay", "address", "phoneNumber", "status"],
+            attributes: ["peopleID", "username", "password", "name", "lastname", "rank", "age", "birthDay", "address", "phoneNumber", "status"],
         })
             .then(police => {
                 res.send(police);
@@ -22,16 +22,15 @@ exports.findAll = (req, res) => {
 // create function
 exports.create = (req, res) => {
     try {
-        if (!req.body.id | !req.body.peopleID | !req.body.user | !req.body.passwordID | !req.body.name | !req.body.lastname | !req.body.rank | !req.body.age | !req.body.birthDay | !req.body.address | !req.body.phoneNumber | !req.body.status) {
+        if (!req.body.peopleID | !req.body.username | !req.body.password | !req.body.name | !req.body.lastname | !req.body.rank | !req.body.age | !req.body.birthDay | !req.body.address | !req.body.phoneNumber | !req.body.status) {
             res.status(400).json({ massage: "Cannot Empty!" });
             return;
         }
 
         const policeObj = {
-            id: req.body.id,
             peopleID: req.body.peopleID,
-            user: req.body.user,
-            passwordID: req.body.passwordID,
+            username: req.body.username,
+            password: req.body.password,
             name: req.body.name,
             lastname: req.body.lastname,
             rank: req.body.rank,
@@ -83,12 +82,13 @@ exports.update = (req, res) => {
     try {
         const id = req.params.id;
         const policeObj = {
-            user: req.body.user,
-            passwordID: req.body.passwordID,
+            peopleID: req.body.peopleID,
+            username: req.body.username,
+            password: req.body.password,
             name: req.body.name,
             lastname: req.body.lastname,
-            age: req.body.age,
             rank: req.body.rank,
+            age: req.body.age,
             birthDay: req.body.birthDay,
             address: req.body.address,
             phoneNumber: req.body.phoneNumber,
@@ -100,7 +100,7 @@ exports.update = (req, res) => {
         })
             .then(data => {
                 if (data == 1) {
-                    res.status(200).json({ massage: "Update DATA Success..!" })
+                    res.status(200).json({ massage: "Update Success..!" })
                 }
                 res.status(200).json(data);
             })

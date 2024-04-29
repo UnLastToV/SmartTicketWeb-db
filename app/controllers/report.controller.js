@@ -2,20 +2,21 @@ const db = require('../model');
 const Report = db.report;
 const Police = db.police;
 const User = db.user;
+const Vehicle = db.vehicle;
 
 exports.findAll = (req, res) => {
     try {
         Report.findAll({
-            attributes: ["id", "addDate", "outDate"],
+            attributes: ["id", "issueDate", "expiryDate"],
             include:
                 [
                     {
                         model: Police,
-                        attributes: ["policeID", "name", "lastname", "position"]
+                        attributes: ["peopleID", "name", "lastname", "rank"]
                     },
                     {
                         model: User,
-                        attributes: ["peopleID", "name", "lastname", "age", "address", "phoneNumber"]
+                        attributes: ["peopleID", "name", "lastname", "age", "phoneNumber"]
                     }
                 ]
         })
@@ -33,15 +34,15 @@ exports.findAll = (req, res) => {
 // create function
 exports.create = (req, res) => {
     try {
-        if (!req.body.id | !req.body.addDate | !req.body.outDate) {
+        if (!req.body.id | !req.body.issueDate | !req.body.expiryDate) {
             res.status(400).json({ massage: "Cannot Empty!" });
             return;
         }
 
         const reportObj = {
             id: req.body.id,
-            addDate: req.body.addDate,
-            outDate: req.body.outDate
+            issueDate: req.body.issueDate,
+            expiryDate: req.body.expiryDate
         }
         Report.create(reportObj)
             .then((data) => {
@@ -66,11 +67,15 @@ exports.findOne = (req, res) => {
                 [
                     {
                         model: Police,
-                        attributes: ["policeID", "name", "lastname", "position"]
+                        attributes: ["peopleID", "name", "lastname", "rank"]
                     },
                     {
                         model: User,
                         attributes: ["peopleID", "name", "lastname", "age", "address", "phoneNumber"]
+                    },
+                    {
+                        model: Vehicle,
+                        attributes: ["vehicleLicensePlate", "vehicleProvince", "carType", "brand"]
                     }
                 ]
         })
@@ -91,7 +96,7 @@ exports.update = (req, res) => {
     try {
         const id = req.params.id;
         const reportObj = {
-            outDate: req.body.outDate
+            expiryDate: req.body.expiryDate
         }
 
         Report.update(reportObj, {
